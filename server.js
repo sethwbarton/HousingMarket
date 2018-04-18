@@ -81,7 +81,7 @@ app.get('/api/users/:id/contracts', (req, res) => {
   knex('users').join('contracts','users.id','contracts.user_id')
     .where('users.id',id)
     .orderBy('created','desc')
-    .select('description','username','name','created').then(contracts => {
+    .select('description','username','name','created','amenities','address').then(contracts => {
       res.status(200).json({contracts:contracts});
     }).catch(error => {
       res.status(500).json({ error });
@@ -92,7 +92,7 @@ app.get('/api/users/:id/contracts', (req, res) => {
 app.post('/api/users/:id/contracts', (req, res) => {
   let id = parseInt(req.params.id);
   knex('users').where('id',id).first().then(user => {
-    return knex('contracts').insert({user_id: id, description:req.body.contract, created: new Date()});
+    return knex('contracts').insert({user_id: id, description:req.body.contract, amenities:req.body.amenities, address:req.body.address, created: new Date()});
   }).then(ids => {
     return knex('contracts').where('id',ids[0]).first();
   }).then(description => {

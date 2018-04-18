@@ -43,7 +43,6 @@ export default new Vuex.Store({
 register(context,user) {
   axios.post("/api/users",user).then(response => {
 context.commit('setUser', response.data.user);
-console.log("You logged in!");
 context.commit('setLogin',true);
 context.commit('setRegisterError',"");
 context.commit('setLoginError',"");

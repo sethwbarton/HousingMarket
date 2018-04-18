@@ -3,6 +3,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('contracts', function(table) {
       table.increments('id').primary();
       table.string('description');
+      table.string('amenities');
+      table.string('address');
       table.dateTime('created');
       table.integer('user_id').unsigned().notNullable().references('id').inTable('users');
     }),

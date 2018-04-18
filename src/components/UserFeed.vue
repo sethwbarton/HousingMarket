@@ -1,16 +1,25 @@
 <template>
   <div class="feed">
     <div>
+      <h1>Post Your Contracts To Sell Here</h1>
       <form v-on:submit.prevent="post" class="PostForm">
-	<textarea v-model="text" placeholder=""/><br/>
+	<textarea v-model="text" placeholder="Description"/><br/>
+  <textarea v-model="amenities" placeholder="Amenities"/><br/>
+  <textarea v-model="address" placeholder="Address"/><br/>
 	<div class="buttonWrap">
 	  <button class="primary" type="submit">Post</button>
 	</div>
       </form>
     </div>
     <div v-for="item in feed" class="item">
-      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">@{{item.username}}</span><span class="time">{{item.created | since}}</span></p>
+      <h3>Your Contracts:</h3>
+      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span class="time">{{item.created | since}}</span></p>
+      <h5>Description:</h5>
       <p class="post">{{item.description}}</p>
+      <h5>Amenities:</h5>
+      <p class="post">{{item.amenities}}</p>
+      <h5>Adress:</h5>
+      <p class="post">{{item.address}}</p>
     </div>
   </div>
 </template>
@@ -23,6 +32,8 @@
    data () {
      return {
        text: '',
+       amenities: '',
+       address: '',
      }
    },
    created: function() {
@@ -60,8 +71,12 @@
      post: function() {
        this.$store.dispatch('addContract',{
          contract: this.text,
+         amenities: this.amenities,
+         address: this.address,
        }).then(post => {
 	        this.text = "";
+          this.amenities = "";
+          this.address = "";
        });
      },
    }

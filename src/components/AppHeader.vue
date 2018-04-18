@@ -1,7 +1,7 @@
 <template>
   <nav>
     <ul id="menu">
-      <i class="fas fa-home"></i>
+      <i class="fas fa-home fontAwesome"></i>
       <li><router-link to="/">Home</router-link></li>
       <li class="right" v-if="loggedIn"><a @click="logout" href="#">Logout</a></li>
       <li class="right" v-if="loggedIn">{{user.username}}</li>
@@ -58,6 +58,11 @@
 * {
   background-color: #213d4c;
 }
+.fontAwesome {
+  color: white;
+  font-size: 2em;
+  margin-top: 10px; 
+}
 
 input {
   background-color: white;
@@ -81,6 +86,9 @@ input {
      text-align: center;
      line-height: 50px;
      color: #666;
+ }
+ li a {
+   color: white;
  }
  /*Active color*/
  li a.active {

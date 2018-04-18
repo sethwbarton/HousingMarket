@@ -1,6 +1,5 @@
 <template>
   <div class="column">
-    <i class="fas fa-home"></i>
     <h1>The Housing Market</h1>
     <h2>Housing Made Easier</h2>
     <form v-on:submit.prevent="register">
@@ -12,6 +11,7 @@
       <input class="narrow" v-model="email" placeholder="Email Address">
       <input class="narrow" type="password" v-model="password" placeholder="Password">
       <button class="alternate" type="submit">Register</button>
+      <p>3. Log in above!</p>
     </form>
     <p class="error">{{registerError}}</p>
   </div>
@@ -51,6 +51,13 @@
  img {
      width: 100px;
  }
+
+ .fontAwesome {
+   color: white;
+   font-size: 2em;
+   margin-top: 10px;
+ }
+
 
  h1 {
      margin-bottom: 0px;
