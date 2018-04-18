@@ -103,3 +103,25 @@ app.post('/api/users/:id/contracts', (req, res) => {
     res.status(500).json({ error });
   });
 });
+
+// Searching for contracts
+app.get('/api/contracts/search', (req, res) => {
+  if (!req.query.keywords)
+    return res.status(400).send();
+  let offset = 0;
+  if (req.query.offset)
+    offset = parseInt(req.query.offset);
+  let limit = 50;
+  if (req.query.limit)
+    limit = parseInt(req.query.limit);
+  knex('users').join('contracts','users.id','contracts.user_id')
+    .whereRaw("MATCH (description) AGAINST('" + req.query.keywords + "')")
+    .orderBy('created','desc')
+    .limit(limit)
+    .offset(offset)
+    .select('description','username','name','created','amenities','address').then(contracts => {
+      res.status(200).json({contracts:contracts});
+    }).catch(error => {
+      res.status(500).json({ error });
+    });
+});

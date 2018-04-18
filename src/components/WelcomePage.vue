@@ -13,6 +13,7 @@
       <button class="alternate" type="submit">Register</button>
       <p>3. Log in above!</p>
     </form>
+      <p>Find my GitHub repository <a href="https://github.com/sethwbarton/housingmarket">here.</a></p>
     <p class="error">{{registerError}}</p>
   </div>
 </template>

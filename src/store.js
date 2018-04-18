@@ -12,6 +12,7 @@ export default new Vuex.Store({
     loginError: '',
     registerError: '',
     feed: [],
+    searchResults: [],
   },
   getters: {
     user: state => state.user,
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     loginError: state => state.loginError,
     registerError: state => state.registerError,
     feed: state => state.feed,
+    searchResults: state => state.searchResults,
   },
   mutations: {
     setUser (state, user) {
@@ -35,6 +37,9 @@ export default new Vuex.Store({
     },
     setFeed (state, feed) {
       state.feed = feed;
+    },
+    setSearchResults (state, searchResults) {
+      state.searchResults = searchResults;
     },
   },
   actions: {
@@ -100,6 +105,14 @@ addContract(context, contract) {
     console.log('/api/user/' + context.state.user.id + '/contracts');
     console.log('addContract failed:', err);
   });
+},
+
+doSearch(context,keywords) {
+    axios.get('/api/contracts/search?keywords=' + keywords.keywords).then(response => {
+      context.commit('setSearchResults',response.data.contracts);
+    }).catch(err => {
+      console.log("doSearch failed: ", err);
+    });
 },
 
   }

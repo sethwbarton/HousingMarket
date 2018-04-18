@@ -1,26 +1,46 @@
 <template>
   <div class="feed">
+  <div >
     <div>
       <h1>Post Your Contracts To Sell Here</h1>
       <form v-on:submit.prevent="post" class="PostForm">
-	<textarea v-model="text" placeholder="Description"/><br/>
-  <textarea v-model="amenities" placeholder="Amenities"/><br/>
-  <textarea v-model="address" placeholder="Address"/><br/>
-	<div class="buttonWrap">
-	  <button class="primary" type="submit">Post</button>
-	</div>
+	       <textarea v-model="text" placeholder="Description"/><br/>
+         <textarea v-model="amenities" placeholder="Amenities"/><br/>
+         <textarea v-model="address" placeholder="Address"/><br/>
+	        <div class="buttonWrap">
+	           <button class="primary" type="submit">Post</button>
+	       </div>
       </form>
     </div>
-    <div v-for="item in feed" class="item">
-      <h3>Your Contracts:</h3>
-      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span class="time">{{item.created | since}}</span></p>
+      <div v-for="item in feed" class="item">
+        <h3>Your Contracts:</h3>
+        <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span></p>
+        <h5>Description:</h5>
+        <p class="post">{{item.description}}</p>
+        <h5>Amenities:</h5>
+        <p class="post">{{item.amenities}}</p>
+        <h5>Address:</h5>
+        <p class="post">{{item.address}}</p>
+      </div>
+  </div>
+  <div>
+    <div class="search">
+      <h1>Search For Contracts to Buy Here:</h1>
+      <form v-on:submit.prevent="search">
+       <input v-model="keywords" placeholder="Search">
+       <a href="#" v-on:click="search" class="search"><i class="fas fa-search"></i></a>
+      </form>
+    </div>
+    <div v-for="item in searchResults" class="item">
+      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span></p>
       <h5>Description:</h5>
       <p class="post">{{item.description}}</p>
       <h5>Amenities:</h5>
       <p class="post">{{item.amenities}}</p>
-      <h5>Adress:</h5>
+      <h5>Address:</h5>
       <p class="post">{{item.address}}</p>
     </div>
+  </div>
   </div>
 </template>
 
@@ -31,6 +51,7 @@
    name: 'UserFeed',
    data () {
      return {
+       keywords: '',
        text: '',
        amenities: '',
        address: '',
@@ -66,6 +87,10 @@
      feed: function() {
        return this.$store.getters.feed;
      },
+     searchResults: function() {
+       console.log(this.$store.getters.searchResults);
+       return this.$store.getters.searchResults;
+     },
    },
    methods: {
      post: function() {
@@ -79,13 +104,28 @@
           this.address = "";
        });
      },
+
+    search: function() {
+        this.$store.dispatch('doSearch', {
+          keywords: this.keywords,
+        }).then(post => {
+          this.keywords = '';
+          this.amenities = "";
+          this.address = "";
+        });
+    },
+
    }
  }
+
+
 </script>
 
 <style scoped>
  .feed {
-     width: 600px;
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-column-gap: 1em;
  }
  .PostForm {
      background: #eee;
@@ -130,5 +170,9 @@
  .time {
      float: right;
      color: #666;
+ }
+
+ .fa-search {
+   color: black;
  }
 </style>
