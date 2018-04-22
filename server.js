@@ -46,7 +46,7 @@ app.post('/api/login', (req, res) => {
 
 // Register a user
 app.post('/api/users', (req, res) => {
-  if (!req.body.email || !req.body.password || !req.body.username || !req.body.name)
+  if (!req.body.email || !req.body.password || !req.body.username || !req.body.name || !req.body.phoneNumber)
     return res.status(400).send();
   knex('users').where('email',req.body.email).first().then(user => {
     if (user !== undefined) {
@@ -61,7 +61,7 @@ app.post('/api/users', (req, res) => {
     }
     return bcrypt.hash(req.body.password, saltRounds);
   }).then(hash => {
-    return knex('users').insert({email: req.body.email, hash: hash, username:req.body.username,
+    return knex('users').insert({email: req.body.email, hash: hash, username:req.body.username, phoneNumber: req.body.phoneNumber,
 				 name:req.body.name, role: 'user'});
   }).then(ids => {
     return knex('users').where('id',ids[0]).first().select('username','name','id');
@@ -81,7 +81,7 @@ app.get('/api/users/:id/contracts', (req, res) => {
   knex('users').join('contracts','users.id','contracts.user_id')
     .where('users.id',id)
     .orderBy('created','desc')
-    .select('description','username','name','created','amenities','address').then(contracts => {
+    .select('description','username','name','phoneNumber','created','amenities','address').then(contracts => {
       res.status(200).json({contracts:contracts});
     }).catch(error => {
       res.status(500).json({ error });
@@ -119,7 +119,7 @@ app.get('/api/contracts/search', (req, res) => {
     .orderBy('created','desc')
     .limit(limit)
     .offset(offset)
-    .select('description','username','name','created','amenities','address').then(contracts => {
+    .select('description','username','name','created','phoneNumber','amenities','address').then(contracts => {
       res.status(200).json({contracts:contracts});
     }).catch(error => {
       res.status(500).json({ error });

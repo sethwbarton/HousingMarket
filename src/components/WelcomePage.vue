@@ -9,7 +9,8 @@
       <p>2. Create an account.</p>
       <input class="wide" v-model="name" placeholder="First and Last Name"><br/>
       <input class="narrow" v-model="email" placeholder="Email Address">
-      <input class="narrow" type="password" v-model="password" placeholder="Password">
+      <input class="narrow" type="password" v-model="password" placeholder="Password"> <br/>
+      <input class="narrow" type="phoneNumber" v-model="phoneNumber" placeholder="Phone Number">
       <button class="alternate" type="submit">Register</button>
       <p>3. Log in above!</p>
     </form>
@@ -26,6 +27,7 @@
        username: '',
        email: '',
        password: '',
+       phoneNumber: '',
        name: '',
      }
    },
@@ -40,6 +42,7 @@
 	        username: this.username,
           email: this.email,
           password: this.password,
+          phoneNumber: this.phoneNumber,
 	        name: this.name,
        });
      }

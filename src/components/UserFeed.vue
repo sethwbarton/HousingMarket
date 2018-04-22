@@ -14,7 +14,7 @@
     </div>
       <div v-for="item in feed" class="item">
         <h3>Your Contracts:</h3>
-        <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span></p>
+        <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span><span class="handle">{{item.phoneNumber}}</span></p>
         <h5>Description:</h5>
         <p class="post">{{item.description}}</p>
         <h5>Amenities:</h5>
@@ -32,7 +32,7 @@
       </form>
     </div>
     <div v-for="item in searchResults" class="item">
-      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span></p>
+      <p class="idline"><span class="user">{{item.name}}</span><span class="handle">{{item.username}}</span><span       class="time">{{item.created | since}}</span><span class="handle">{{item.phoneNumber}}</span></p></p>
       <h5>Description:</h5>
       <p class="post">{{item.description}}</p>
       <h5>Amenities:</h5>

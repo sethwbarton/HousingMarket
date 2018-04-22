@@ -8,6 +8,6 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.raw("alter table contracts drop index contract"),
+    knex.raw("alter table contracts drop index description"),
   ]);
 };
